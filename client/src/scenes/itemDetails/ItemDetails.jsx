@@ -28,7 +28,7 @@ const ItemDetails = () => {
 
   async function getItem() {
     const item = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate=image`,
+      `https://aerio-server.onrender.com/api/items/${itemId}?populate=image`,
       {
         method: "GET",
       }
@@ -40,7 +40,7 @@ const ItemDetails = () => {
 
   async function getItems() {
     const items = await fetch(
-      `http://localhost:1337/api/items?populate=image`,
+      `https://aerio-server.onrender.com/api/items?populate=image`,
       {
         method: "GET",
       }
@@ -75,7 +75,7 @@ const ItemDetails = () => {
             alt={itemName}
             width="100%"
             height="500px"
-            src={`http://localhost:1337${itemImg}`}
+            src={`https://aerio-server.onrender.com${itemImg}`}
             style={{ objectFit: "contain" }}
           />
         </Box>

@@ -24,7 +24,7 @@ const ShoppingList = () => {
   }, [])
 
   const getItems = async () => {
-    const items = await fetch("http://localhost:1337/api/items?populate=image", {method:"GET"})
+    const items = await fetch("https://aerio-server.onrender.com/api/items?populate=image", {method:"GET"})
     const itemsJson = await items.json();
     dispatch(setItems(itemsJson.data))
   } 
