@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Fauna+One&display=swap');
+
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.app{
+  margin:auto;
+}
+
+.custbtn:hover{
+  border: 1px solid #222222 !important;
+  color:#222222 !important;
+}
