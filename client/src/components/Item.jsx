@@ -21,11 +21,19 @@ const Item = ({ item, width }) => {
     data: {
       attributes: {
         formats: {
-          medium: { url },
+          small: { url },
         },
       },
     },
   } = image;
+
+  const {
+  data: {
+    attributes: {
+      formats: { medium, small, thumbnail },
+    },
+  },
+} = image;
 
   useEffect(() => {
     console.log("img", url)
