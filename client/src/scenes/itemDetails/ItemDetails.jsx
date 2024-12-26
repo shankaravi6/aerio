@@ -62,7 +62,7 @@ const ItemDetails = () => {
 
 
 
-  const itemImg = useSelector((state) => state.cart?.idItems?.attributes?.image.data.attributes.formats.medium.url);
+  const itemImg = useSelector((state) => state.cart?.idItems?.attributes?.image.data.attributes.formats.small.url);
 
 
 
