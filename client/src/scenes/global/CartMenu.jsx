@@ -66,7 +66,7 @@ const CartMenu = () => {
                       alt={item?.name}
                       width="123px"
                       height="164px"
-                      src={`https://aerio-server.onrender.com${item?.attributes?.image?.data?.attributes?.formats?.medium?.url}`}
+                      src={`https://aerio-server.onrender.com${item?.attributes?.image?.data?.attributes?.formats?.small?.url}`}
                     />
                   </Box>
                   <Box flex="1 1 60%">
