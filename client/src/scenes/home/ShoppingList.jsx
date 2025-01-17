@@ -24,9 +24,13 @@ const ShoppingList = () => {
   }, []);
 
   const getItems = async () => {
-    const items = await fetch("http://localhost:1337/api/items?populate=image", { method: "GET" });
-    const itemsJson = await items.json();
-    dispatch(setItems(itemsJson.data));
+    try {
+      const items = await fetch("http://localhost:1337/api/items?populate=image", { method: "GET" });
+      const itemsJson = await items.json();
+      dispatch(setItems(itemsJson.data));
+    } catch (error) {
+      console.error("Error fetching items", error);
+    }
   };
 
   const filterActiveItems = (items) => {
