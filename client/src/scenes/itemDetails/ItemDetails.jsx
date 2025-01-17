@@ -35,7 +35,6 @@ const ItemDetails = () => {
     );
     const itemJson = await item.json();
     dispatch(setIdItems(itemJson.data));
-    setCount(1)
   }
 
   async function getItems() {
