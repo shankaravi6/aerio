@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { IconButton, Box, Typography, useTheme, Button } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import { Box, Typography, useTheme, Button } from "@mui/material";
 import { shades } from "../theme";
 import { addToCart } from "../state";
 import { useNavigate } from "react-router-dom";
@@ -30,13 +28,13 @@ const Item = ({ item, width }) => {
     },
   } = image;
 
-  const {
-  data: {
-    attributes: {
-      formats: { medium, small, thumbnail },
-    },
-  },
-} = image;
+//   const {
+//   data: {
+//     attributes: {
+//       formats: { medium, small, thumbnail },
+//     },
+//   },
+// } = image;
 
   useEffect(() => {
     console.log("img", url)
