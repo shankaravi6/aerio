@@ -12,21 +12,13 @@ const Item = ({ item, width }) => {
   const [isHovered, setIsHovered] = useState(false);
   const cart = useSelector((state) => state.cart.cart || [])
 
-  const isInCart = cart.some((cartItem) => cartItem.id === item.id);
+  const isInCart = cart.some((cartItem) => cartItem._id === item._id);
   const {
     palette: { neutral },
   } = useTheme();
 
-  const { category, price, name, image } = item.attributes;
-  const {
-    data: {
-      attributes: {
-        formats: {
-          small: { url },
-        },
-      },
-    },
-  } = image;
+  const { category, price, name, imageName } = item;
+  
 
 //   const {
 //   data: {
@@ -36,9 +28,7 @@ const Item = ({ item, width }) => {
 //   },
 // } = image;
 
-  useEffect(() => {
-    console.log("img", url)
-  })
+  const url = imageName;
 
   return (
     <Box width={width}>
@@ -51,8 +41,8 @@ const Item = ({ item, width }) => {
           alt={item.name}
           width="300px"
           height="300px"
-          src={`http://localhost:1337${url}`}
-          onClick={() => navigate(`/item/${item.id}`)}
+          src={`http://localhost:5050/uploads/${url}`}
+          onClick={() => navigate(`/item`,  { state: { item } })}
           style={{ cursor: "pointer" }}
         />
         <Box

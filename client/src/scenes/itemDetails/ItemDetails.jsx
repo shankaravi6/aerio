@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Item from "../../components/Item";
 import { shades } from "../../theme";
@@ -12,6 +12,9 @@ import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import SpaIcon from "@mui/icons-material/Spa";
 
 const ItemDetails = () => {
+  const location = useLocation();
+  const itemData = location.state?.item;
+
   const dispatch = useDispatch();
   const { itemId } = useParams();
   const [value, setValue] = useState("description");
@@ -19,27 +22,27 @@ const ItemDetails = () => {
   const [items, setItems] = useState([]);
   const [shuffledItems, setShuffledItems] = useState([]); // State for shuffled items
   const cart = useSelector((state) => state.cart.cart || []);
-  const itemNew = useSelector((state) => state.cart.idItems.id);
-  const isInCart = cart.some((cartItem) => cartItem.id === itemNew);
+  const itemNew = useSelector((state) => state.cart.idItems._id);
+  const isInCart = cart.some((cartItem) => cartItem._id === itemNew);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   async function getItem() {
-    const item = await fetch(
-      `http://localhost:1337/api/items/${itemId}?populate=image`,
-      {
-        method: "GET",
-      }
-    );
-    const itemJson = await item.json();
-    dispatch(setIdItems(itemJson.data));
+    // const item = await fetch(
+    //   `http://localhost:1337/api/items/${itemId}?populate=image`,
+    //   {
+    //     method: "GET",
+    //   }
+    // );
+    // const itemJson = await item.json();
+    dispatch(setIdItems(itemData));
   }
 
   async function getItems() {
     const items = await fetch(
-      `http://localhost:1337/api/items?populate=image`,
+      `http://localhost:5050/api/data/${"aerio_product"}`,
       {
         method: "GET",
       }
@@ -56,9 +59,8 @@ const ItemDetails = () => {
 
   // Shuffle items and set only the first 3
   useEffect(() => {
-    if (items.length > 0) {
-      const shuffled = items
-        .filter((item) => item.attributes.active)
+    if (items && items.length > 0) {
+      const shuffled = items?.filter((item) => item.active)
         .sort(() => Math.random() - 0.5) // Shuffling the items
         .slice(0, 3); // Limit to the first 3 items
       setShuffledItems(shuffled);
@@ -66,25 +68,25 @@ const ItemDetails = () => {
   }, [items]); // Trigger shuffle when items are fetched
 
   const item = useSelector((state) => state.cart?.idItems);
-  const itemName = useSelector((state) => state.cart.idItems.attributes?.name);
+  const itemName = useSelector((state) => state.cart.idItems?.name);
   const itemPrice = useSelector(
-    (state) => state.cart.idItems.attributes?.price
+    (state) => state.cart.idItems?.price
   );
   const itemShortDesc = useSelector(
     (state) =>
-      state.cart.idItems.attributes?.shortDescription[0].children[0].text
+      state.cart.idItems?.shortDesc
   );
   const itemDesc = useSelector(
     (state) =>
-      state.cart.idItems.attributes?.longDescription[0].children[0].text
+      state.cart.idItems?.LongDesc
   );
   const itemCate = useSelector(
-    (state) => state.cart.idItems.attributes?.category
+    (state) => state.cart.idItems?.category
   );
 
   const itemImg = useSelector(
     (state) =>
-      state.cart?.idItems?.attributes?.image.data.attributes.formats.small.url
+      state.cart?.idItems?.imageName
   );
 
   return (
@@ -96,7 +98,7 @@ const ItemDetails = () => {
             alt={itemName}
             width="100%"
             height="500px"
-            src={`http://localhost:1337${itemImg}`}
+            src={`http://localhost:5050/uploads/${itemImg}`}
             style={{ objectFit: "contain" }}
           />
         </Box>
@@ -176,7 +178,7 @@ const ItemDetails = () => {
         </Tabs>
       </Box>
       <Box display="flex" flexWrap="wrap" gap="15px">
-        {value === "description" && <div>{itemDesc}</div>}
+        {value === "description" && <div dangerouslySetInnerHTML={{ __html: itemDesc }} />}
       </Box>
       <Box sx={{ mt: "25px" }}>
         <Typography variant="h4" fontWeight="600" color={shades.secondary[500]}>
@@ -200,7 +202,7 @@ const ItemDetails = () => {
         </Typography>
         <Box mt="20px" display="flex" flexWrap="wrap" columnGap="1.33%" justifyContent="space-between">
           {shuffledItems.map((item, i) => (
-            <Item key={`${item.attributes.name}-${i}`} item={item} />
+            <Item key={`${item.name}-${i}`} item={item} />
           ))}
         </Box>
       </Box>

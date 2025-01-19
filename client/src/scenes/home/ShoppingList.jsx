@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
@@ -19,33 +19,35 @@ const ShoppingList = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getItems();
   }, []);
 
   const getItems = async () => {
     try {
-      const items = await fetch("http://localhost:1337/api/items?populate=image", { method: "GET" });
-      const itemsJson = await items.json();
+      const itemsRes = await fetch(`http://localhost:5050/api/data/${"aerio_product"}`, { method: "GET" });
+      const itemsJson = await itemsRes.json();
       dispatch(setItems(itemsJson.data));
+      console.log("itemsJson", items);
+
     } catch (error) {
       console.error("Error fetching items", error);
     }
   };
 
   const filterActiveItems = (items) => {
-    return items.filter(item => item.attributes.active === true);
+    return items.filter(item => item.active === true || item.active === "true");
   };
 
-  const artifactsAntiquesItems = filterActiveItems(items.filter((item) => item.attributes.category === "Artifacts&Antiques"));
-  const vintageCollectiblesItems = filterActiveItems(items.filter((item) => item.attributes.category === "VintageCollectibles"));
-  const booksManuscriptsItems = filterActiveItems(items.filter((item) => item.attributes.category === "Books&Manuscripts"));
-  const culturalReligiousItems = filterActiveItems(items.filter((item) => item.attributes.category === "Cultural&Religious"));
-  const naturalHistoryItems = filterActiveItems(items.filter((item) => item.attributes.category === "NaturalHistory"));
+  const artifactsAntiquesItems = filterActiveItems(items?.filter((item) => item.category === "Artifacts&Antiques"));
+  const vintageCollectiblesItems = filterActiveItems(items?.filter((item) => item.category === "VintageCollectibles"));
+  const booksManuscriptsItems = filterActiveItems(items?.filter((item) => item.category === "Books&Manuscripts"));
+  const culturalReligiousItems = filterActiveItems(items?.filter((item) => item.category === "Cultural&Religious"));
+  const naturalHistoryItems = filterActiveItems(items?.filter((item) => item.category === "NaturalHistory"));
 
   return (
     <div>
-      <Box width="80%" margin="80px auto">
+      <Box id='fea_prod' width="80%" margin="80px auto">
         <Typography variant="h3" textAlign="center">
           Our Featured <b style={{color:`${shades.secondary[500]}`}}>Products</b>
         </Typography>

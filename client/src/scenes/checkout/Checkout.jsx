@@ -19,7 +19,20 @@ const Checkout = () => {
   const isSecondStep = activeStep === 1;
 
   const handleFormSubmit = async (values, actions) => {
-    
+
+    const requestBodyNew = {
+      firstName :values.billingAddress.firstName,
+      lastName : values.billingAddress.lastName,
+      email : values.email,
+      phoneNumber : values.phoneNumber,
+      street1 : values.billingAddress.street1,
+      street2 : values.billingAddress.street2,
+      city : values.billingAddress.city,
+      state : values.billingAddress.state,
+      country : values.billingAddress.country,
+      zipCode : values.billingAddress.zipCode,
+    }
+    console.log("values", requestBodyNew);
     setActiveStep(activeStep + 1);
 
     // this copies the billing address onto shipping address
@@ -40,13 +53,24 @@ const Checkout = () => {
   async function makePayment(values) {
     const stripe = await stripePromise;
     const requestBody = {
+      firstName :values.billingAddress.firstName,
+      lastName : values.billingAddress.lastName,
+      email : values.email,
+      phoneNumber : values.phoneNumber,
+      street1 : values.billingAddress.street1,
+      street2 : values.billingAddress.street2,
+      city : values.billingAddress.city,
+      state : values.billingAddress.state,
+      country : values.billingAddress.country,
+      zipCode : values.billingAddress.zipCode,
       userName:values.email,
-      email: values.email,
-      products: cart.map(({ id, count }) => ({
-        id,
+      products: cart.map(({ _id, count, price, name }) => ({
+        _id,
         count,
+        price,
+        name
       })),
-      productId: cart.map(({ id }) => String(id)).join(","),
+      productName: cart.map(({ name }) => String(name)).join(","),
       productCount: cart.map(({ count }) => String(count)).join(","),
     };
 
@@ -65,27 +89,20 @@ const Checkout = () => {
       }
     }
 
-    const response = await fetch("http://localhost:1337/api/orders", {
+    const response = await fetch(`http://localhost:5050/api/data/${"aerio_orders"}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
 
-    const userResponse = await fetch("http://localhost:1337/api/userdatas", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(userReqData),
-    });
-    const session = await response.json();
+
 
     for (const item of cart) {
-      const updateResponse = await fetch(`http://localhost:1337/api/items/${item.id}`, {
-        method: "PUT",
+      const updateResponse = await fetch(`http://localhost:5050/api/data/${"aerio_product"}/${item._id}`, {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: {
             active: false,
-          },
         }),
       });
   
@@ -93,8 +110,17 @@ const Checkout = () => {
       console.log(`Updated product ${item.id}:`, updateData);
     }
 
+    const stripeResponse = await fetch(`http://localhost:5050/api/data/stripe-payment/${"aerio_payment"}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    });
+
+    const session = await stripeResponse.json();
+    console.log(session.data.sessionId)
+
     await stripe.redirectToCheckout({
-      sessionId: session.id,
+      sessionId: session.data.sessionId,
     });
   }
 

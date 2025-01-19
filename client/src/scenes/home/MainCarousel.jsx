@@ -84,19 +84,21 @@ const MainCarousel = () => {
             maxWidth={isNonMobile ? "undefined" : "240px"}
             width={isNonMobile ? "40%" : "100%"}
           >
-            <Typography variant="h1" color={isNonMobile ? shades.secondary[500] : shades.secondary[200]} fontSize={'clamp(2rem, 5vw, 4rem)'} textAlign={'justify'}>Ancient Finds Festival</Typography>
+            <Typography variant="h1" color={isNonMobile ? shades.secondary[500] : shades.secondary[200]} fontSize={'clamp(2rem, 5vw, 4rem)'} textAlign={'left'}>Ancient Finds Festival</Typography>
             <Typography variant="h6" color={isNonMobile ? shades.secondary[800] : shades.primary[100]} fontWeight="normal" fontSize={'clamp(0.5rem, 5vw, 1rem)'} textAlign={'justify'}>
             Discover rare treasures at the Ancient Finds Festival! Explore vintage artifacts and historical gems at exclusive prices. Shop now before they’re gone!
             </Typography>
+            
+            <a href="#fea_prod">
             <Typography
               fontWeight="normal"
               color={shades.secondary[100]}
               bgcolor={shades.secondary[800]}
               width={isNonMobile ? "fit-content" : "fit-content"}
               sx={{ textDecoration: "underline", cursor: "pointer", padding: "10px", marginTop:'15px' }}
-            >
-              Discover More
+            >Discover More
             </Typography>
+            </a>
           </Box>
         </Box>
       ))}
