@@ -41,7 +41,7 @@ const Item = ({ item, width }) => {
           alt={item.name}
           width="300px"
           height="300px"
-          src={`http://localhost:5050/uploads/${url}`}
+          src={`https://blackcms.onrender.com/uploads/${url}`}
           onClick={() => navigate(`/item`,  { state: { item } })}
           style={{ cursor: "pointer" }}
         />

@@ -89,7 +89,7 @@ const Checkout = () => {
       }
     }
 
-    const response = await fetch(`http://localhost:5050/api/data/${"aerio_orders"}`, {
+    const response = await fetch(`https://blackcms.onrender.com/api/data/${"aerio_orders"}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
@@ -98,7 +98,7 @@ const Checkout = () => {
 
 
     for (const item of cart) {
-      const updateResponse = await fetch(`http://localhost:5050/api/data/${"aerio_product"}/${item._id}`, {
+      const updateResponse = await fetch(`https://blackcms.onrender.com/api/data/${"aerio_product"}/${item._id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -110,7 +110,7 @@ const Checkout = () => {
       console.log(`Updated product ${item.id}:`, updateData);
     }
 
-    const stripeResponse = await fetch(`http://localhost:5050/api/data/stripe-payment/${"aerio_payment"}`, {
+    const stripeResponse = await fetch(`https://blackcms.onrender.com/api/data/stripe-payment/${"aerio_payment"}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),

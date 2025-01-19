@@ -72,7 +72,7 @@ const CartMenu = () => {
                       alt={item?.name}
                       width="125px"
                       height="125px"
-                      src={`http://localhost:5050/uploads/${item?.imageName}`}
+                      src={`https://blackcms.onrender.com/uploads/${item?.imageName}`}
                     />
                   </Box>
                   <Box flex="1 1 60%">

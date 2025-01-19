@@ -42,7 +42,7 @@ const ItemDetails = () => {
 
   async function getItems() {
     const items = await fetch(
-      `http://localhost:5050/api/data/${"aerio_product"}`,
+      `https://blackcms.onrender.com/api/data/${"aerio_product"}`,
       {
         method: "GET",
       }
@@ -98,7 +98,7 @@ const ItemDetails = () => {
             alt={itemName}
             width="100%"
             height="500px"
-            src={`http://localhost:5050/uploads/${itemImg}`}
+            src={`https://blackcms.onrender.com/uploads/${itemImg}`}
             style={{ objectFit: "contain" }}
           />
         </Box>

@@ -25,7 +25,7 @@ const ShoppingList = () => {
 
   const getItems = async () => {
     try {
-      const itemsRes = await fetch(`http://localhost:5050/api/data/${"aerio_product"}`, { method: "GET" });
+      const itemsRes = await fetch(`https://blackcms.onrender.com/api/data/${"aerio_product"}`, { method: "GET" });
       const itemsJson = await itemsRes.json();
       dispatch(setItems(itemsJson.data));
       console.log("itemsJson", items);
