@@ -40,7 +40,7 @@ const ShoppingList = () => {
   };
 
   const artifactsAntiquesItems = filterActiveItems(items?.filter((item) => item.category === "Artifacts&Antiques"));
-  const vintageCollectiblesItems = filterActiveItems(items?.filter((item) => item.category === "VintageCollectibles"));
+  const vintageCollectiblesItems = filterActiveItems(items?.filter((item) => item.category === "Vintage&Collecibles"));
   const booksManuscriptsItems = filterActiveItems(items?.filter((item) => item.category === "Books&Manuscripts"));
   const culturalReligiousItems = filterActiveItems(items?.filter((item) => item.category === "Cultural&Religious"));
   const naturalHistoryItems = filterActiveItems(items?.filter((item) => item.category === "NaturalHistory"));
@@ -67,7 +67,7 @@ const ShoppingList = () => {
         >
           <Tab label="All" value="all" />
           <Tab label="Artifacts & Antiques" value="Artifacts&Antiques" />
-          <Tab label="Vintage Collectibles" value="VintageCollectibles" />
+          <Tab label="Vintage & Collectibles" value="Vintage&Collecibles" />
           <Tab label="Books & Manuscripts" value="Books&Manuscripts" />
           <Tab label="Cultural & Religious" value="Cultural&Religious" />
           <Tab label="Natural History" value="NaturalHistory" />
@@ -88,7 +88,7 @@ const ShoppingList = () => {
             artifactsAntiquesItems.map((item) => (
               <Item item={item} key={`${item.name}-${item.id}`} />
             ))}
-          {value === "VintageCollectibles" &&
+          {value === "Vintage&Collecibles" &&
             vintageCollectiblesItems.map((item) => (
               <Item item={item} key={`${item.name}-${item.id}`} />
             ))}
