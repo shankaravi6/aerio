@@ -30,7 +30,8 @@ function Footer() {
             AERIO
           </Typography>
           <div style={{textAlign: "justify"}}>
-          At Aerio, we bring history to life with a carefully curated selection of ancient artifacts, vintage collectibles, and timeless treasures. Each piece tells a story, offering a glimpse into the past. Whether you're a passionate collector or simply appreciate the beauty of history, you'll find something extraordinary here. Explore our collection and own a piece of the past today!
+          At Aerio, we bring history to life with a carefully curated selection of ancient artifacts, vintage collectibles, and timeless treasures. Each piece tells a story, offering a glimpse into the past. Whether you're a passionate collector or simply appreciate the beauty of history, you'll find something extraordinary here. Explore our collection and own a piece of the past today! <br/>
+© 2025 <a href="https://shanvix.netlify.app/">ShanVix</a>
           </div>
         </Box>
 
